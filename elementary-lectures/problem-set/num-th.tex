@@ -1,0 +1,328 @@
+\documentclass{treatise}
+
+\begin{document}
+
+\section{Trường hè Bắc 2011}
+\begin{exercise}
+Giải hệ phương trình sau
+\begin{align*}
+(x + \sqrt{x^2 + 1}) (y + \sqrt{y^2 + 1}) & = 1 \\
+y + \frac{y}{\sqrt{x^2 - 1}} + \frac{35}{12} & = 0 
+\end{align*}
+\end{exercise}
+\begin{remark}
+Giải tích, Lượng liên hợp, Phép thế (lượng giác/hyperbol)
+\end{remark}
+\begin{proof}
+Khi có 1 biểu thức được lặp lại trong cùng 1 phương trình, ta nên phân tích nó! Đặt $f(x) = x + \sqrt{x^2 + 1}$, thì đạo hàm của $f$ là
+$$f'(x) = 1 + \frac{x}{\sqrt{x^2 + 1}}$$
+Chừng nào thì $f' \geq 0$ (tương đương với việc $f$ không giảm)? Đó là khi và chỉ khi
+\begin{align*}
+1 + \frac{x}{\sqrt{x^2 + 1}} & \geq 0 \\
+\sqrt{x^2 + 1} + x & \geq 0 \\
+\sqrt{x^2 + 1} & \geq -x
+\end{align*}
+Bất đẳng thức cuối đúng vì $\sqrt{x^2 + 1} > \sqrt{x^2} = |x| \geq -x$. Vậy là $f$ luôn luôn tăng \emph{nghiêm ngặc} trên tập số thực $\mathbb{R}$. Thêm nữa, với cùng lý luận như trên, ta có thể thấy $f(x) > 0$ với mọi $x$. Cuối cùng, lưu ý là $f(0) = 1$, cho nên $f(x) > f(0) = 1$ với $x > 0$, và $f(x) < 1$ với $x < 0$.
+\\
+\\
+Ta viết lại phương trình đầu thành $f(x) f(y) = 1$, hoặc là $f(x) = f(y)^{-1}$. Như vậy nếu $f(x) > 1$ (tương đương với việc $x > 0$ thì $f(y)$ phải bắt buộc nhỏ hơn $1$ (tương đương với việc $y < 0$, và ngược lại. Nói cách khác, $x$ và $y$ phải trái dấu nhau, cho nên $xy < 0$.
+\\
+\\
+Điều kiện bất đẳng thức như thế thì vẫn không đủ để giải được phương trình 2 (lưu ý biểu thức không liên quan gì đến phương trình 1, cho dù có phần $\sqrt{x^2 - 1}$, nhưng vẫn khác với $\sqrt{x^2 + 1}$), cho nên mình phải tìm thêm tính chất nào đó ở phương trình 1. Lưu ý rằng
+$$(x + \sqrt{x^2 + 1})(\sqrt{x^2 + 1} - x) = x^2 + 1 - x^2 = 1$$
+Cho nên $y = -x$ là 1 nghiệm của phương trình 1 (khi $x$ được giữ nguyên). Tuy nhiên $f$ luôn luôn tăng nghiêm ngặc (cụ thể là $f$ đơn ánh), cho nên nghiệm này thật ra là nghiệm duy nhất của phương trình $1$. Nói cách khác, phương trình 1 có nghiệm duy nhất là $y = -x$.
+\\
+\\
+Thay vào phương trình 2, ta có
+\begin{align*}
+-x - \frac{x}{\sqrt{x^2 - 1}} + \frac{35}{12} & = 0 \\
+x \left( 1 + \frac{1}{\sqrt{x^2 - 1}} \right) & = \frac{35}{12} \\
+x \left( \sqrt{x^2 - 1} + 1 \right) & = \frac{35}{12} \sqrt{x^2 - 1} \\
+x^2 \left( \sqrt{x^2 - 1} + 1 \right)^2 & = \frac{1225}{144} (x^2 - 1) \\
+(t^2 + 1) \left( t + 1 \right)^2 & = \frac{1225}{144} t^2 \mbox{ (đặt $t = \sqrt{x^2 - 1}$)} \\
+t^4 + 2t^3  - \frac{937}{144} t^2 + 2t + 1 & = 0
+\end{align*}
+Phương trình bậc 4, tuy có thể giải được bằng công thức (hoặc thử nghiệm), nhưng ta sẽ không đi theo hướng rắc rối như vậy (thử nghiệm cũng nhiều vì $144 = 2^4 * 3^2$). Thay vào đó, khi nhìn thấy đại lượng $\sqrt{x^2 - 1}$, ta có thể gán $s$ cho nó và được đẳng thức $x^2 - s^2 = 1$. Những ai quen với biểu thức này thì biết
+$$x = \pm\frac{t + 1/t}{2}, s = \frac{t - 1/t}{2}$$
+Nhưng $x$ phải dương do $x \left( 1 + \frac{1}{\sqrt{x^2 - 1}} \right) = \frac{35}{12}$, cho nên là $x = \frac{t + 1/t}{2}$. Từ đó ta có
+\begin{align*}
+\frac{t + 1/t}{2} \left( 1 + \frac{2}{t - 1/t} \right) & = \frac{35}{12} \\
+\left( t + \frac{1}{t} \right) \left( t - \frac{1}{t} + 2 \right) & = \frac{35}{6} \left( t - \frac{1}{t} \right) \\
+\left( t^2 + 1 \right) \left( t^2 + 2t - 1 \right) & = \frac{35}{6} \left( t^2 - 1 \right) \\
+t^4 - \frac{23}{6} t^3 + \frac{47}{6} t - 1 & = 0
+\end{align*}
+Thử nghiệm, ta có thể thấy $t = 2$ và $t = 3$ là nghiệm của đa thức trên, cho nên
+$$t^4 - \frac{23}{6} t^3 + \frac{47}{6} t - 1 = (t - 2) (t - 3) (t^2 + \frac{7}{6} t - \frac{1}{6})$$
+Đa thức bậc 2 ở cuối cho ta thêm 2 nghiệm nữa là $t = \frac{-7 \pm \sqrt{73}}{12}$. Thay $t$ lại cho $x$, ta có $x \in \left\{ \frac{5}{4}, \frac{5}{3}, \frac{35 \pm 7 \sqrt{73}}{24} \right\}$. Thử từng nghiệm $x$ vào phương trình gốc thứ 2, ta nhận 2 nghiệm $x = 5/4$ và $x = 5/3$ và loại 2 nghiệm còn lại
+\end{proof}
+\ \\
+\begin{proof}[Cách giải khác]
+Ta giải phương trình 1 bằng việc nhân lượng liên hợp nhiều lần
+\begin{align*}
+x + \sqrt{x^2 + 1} = \frac{1}{y + \sqrt{y^2 + 1}} & = \sqrt{y^2 + 1} - y \\
+x + y = \sqrt{y^2 + 1} - \sqrt{x^2 + 1} & = \frac{y^2 - x^2}{\sqrt{y^2 + 1} + \sqrt{x^2 + 1}} \\
+(x + y) \left[ 1 + \frac{x - y}{\sqrt{y^2 + 1} + \sqrt{x^2 + 1}} \right] & = 0 \\
+(x + y) \frac{\left( \sqrt{x^2 + 1} + x \right) + \left( \sqrt{y^2 + 1} - y \right)}{\sqrt{x^2 + 1} + \sqrt{y^2 + 1}} & = 0
+\end{align*}
+Để ý ở tử là $\sqrt{x^2 + 1} > |x| \geq -x$ và $\sqrt{y^2 + 1} > |y| \geq y$, cho nên tử luôn luôn dương. Mẫu cũng vậy, cho nên là $x + y = 0$, hay $x = -y$.
+\\
+\\
+Với phương trình 2, thay $y = -x$ ta có
+\begin{align*}
+- x - \frac{x}{\sqrt{x^2 - 1}} + \frac{35}{12} & = 0 \\
+x \left( 1 + \frac{1}{\sqrt{x^2 - 1}} \right) = \frac{35}{12} & = 0
+\end{align*}
+Để ý là $|x| > 1$, mà bên phải dương, cho nên $x$ phải dương, suy ra $x > 1$. Từ đó, ta viết lại phương trình 2 thành
+\begin{align*}
+\frac{1}{1/x} + \frac{1}{\sqrt{1 - 1/x^2}} = \frac{35}{12}
+\end{align*}
+Vì $x > 1$, nên $0 < 1/x < 1$, cho nên ta có thể đặt $1/x = \cos \theta$ và $\sqrt{1-1/x^2} = \sin \theta$, với $\theta \in [0, \pi/2]$. Phương trình trở thành
+\begin{align*}
+\frac{1}{\cos \theta} + \frac{1}{\sin \theta} & = \frac{35}{12} \\
+\cos \theta + \sin \theta & = \frac{35}{12} \cos \theta \sin \theta \\
+1 + 2 \cos \theta \sin \theta & = \frac{1225}{144} (\cos \theta \sin \theta)^2 \\
+\end{align*}
+Đặt $u = \cos \theta \sin \theta$ và giải phương trình bậc 2, ta có $u \in \left\{ -\frac{12}{49}, \frac{12}{25} \right\}$. Vì $\theta \in [0, \pi/2]$, ta luôn có $u > 0$, suy ra $u = 12/25$. Thế lại vào phương trình trên, ta có $\cos \theta + \sin \theta = 35/12 \cdot 12/25 = 7/5$. Cùng với $u = \cos \theta \sin \theta = 12/25$, ta tính ra được $(\cos \theta, \sin \theta) \in \{ (3/5, 4/5), (4/5, 3/5) \}$. Vì $1/x = \cos \theta$ và $y = -x$, từ đó ta suy ra được $(x, y) \in \{ (3/5, -3/5), (4/5, -4/5) \}$. Thử lại vào hệ phương trình ta thấy 2 nghiệm đều thõa mãn.
+\end{proof}
+\ \\
+\begin{exercise}
+Tìm tất cả các hàm nguyên $f: \mathbb{N} \cup \{ 0 \} \to \mathbb{N} \cup \{ 0 \}$ sao cho $f(1) > 0$ và
+$$f(m^2 + 3n^2) = (f(m))^2 + 3 (f(n))^2$$
+\end{exercise}
+\begin{remark}
+Thế số, Những số có dạng $m^2 + k n^2$.
+\end{remark}
+\begin{proof} \ 
+\begin{enumerate}
+	\item Cho $m = n = 0$: $f(0) = 4 (f(0))^2$. Nếu $f(0) \neq 0$, ta có $1 = 4 f(0)$ (vô lý vì $f$ nguyên). Cho nên $f(0) = 0$.
+	\item Cho $n = 0$: $f(m^2) = (f(m))^2$. Cho $m = 0$: $f(3n^2) = 3 (f(n))^2 = 3 f(n^2)$. Như vậy $f(3x) = 3 f(x)$ với mọi số chính phương $x$.
+	\item Cho $m = n$: $f(4m^2) = 4 (f(m))^2 = 4 f(m^2)$. Tương tự, ta cũng thấy $f(4x) = 4 f(x)$ với mọi số chính phương $x$.
+\end{enumerate}
+Thử một vài số cụ thể để tìm giá trị của $f$
+\begin{enumerate}
+	\item Cho $m = 1, n = 0$: $f(1) = (f(1))^2 + 3 (f(0))^2 = (f(1))^2$. Vì $f(1) > 0$, ta phải có $f(1) = 1$.
+	\item Cho $m = 0, n = 3$: $f(3) = (f(0))^2 + 3 (f(1))^2 = 3$.
+	\item Cho $m = 2, n = 0$: $f(4) = (f(2))^2$. Mặt khác, cho $m = n = 1$: $f(4) = 4(f(1))^2 = 4$. Cho nên $f(2) = 2$.
+\end{enumerate}
+Để ý rằng $(3a + b)^2 + 3(a - b)^2 = 4(a^2 + 3b^2) = (3a - b)^2 + 3 (a + b)^2$, cho nên nếu ta thế $m = 3a + b, n = a - b$ và $m = 3a - b, n = a + b$ thì
+$$f(4a^2 + 12 b^2) = (f(3a + b))^2 + 3 (f(a - b))^2 = (f(3a - b))^2 + 3 (f(a + b))^2$$
+Với $a, b$ không âm, $3a + b$ là số lớn nhất trong các số $3a + b, a - b, 3a - b, a + b$. Như vậy, nếu ta chứng minh được $f(n) = n$ với $n \in \{ a - b, 3a - b, a + b \}$, thì $f(3a + b) = 3a + b$. Vì $f(n) = n$ cho $n < 4$, quy nạp theo $n$ ta sẽ chứng minh được $f(n) = n$ với mọi $n$.
+\end{proof}
+\
+\\
+\begin{exercise}
+Cho tam giác nhọn $ABC$ có các góc thỏa mãn $\hat{C} < \hat{B} < \hat{A}$, nội tiếp $(O)$ và ngoại tiếp $(I)$. $M$ là điểm chính giữa cung nhỏ $BC$ (của $(O)$), $N$ là trung điểm $BC$. Điểm $E$ đối xứng $I$ qua $N$. Đường thẳng $ME$ cắt $(O)$ tại điểm thứ hai $Q$. Chứng minh rằng
+\begin{enumerate}
+	\item Điểm $Q$ thuộc cung nhỏ $AC$.
+	\item $BQ = AQ + CQ$.
+\end{enumerate}
+\begin{center}
+	\includegraphics[scale=0.75]{img/NSC-3.PNG}
+\end{center}
+\end{exercise}
+\begin{proof} \ \\
+1/
+\begin{center}
+	\includegraphics[scale=0.75]{img/NSC-3a.PNG}
+\end{center}
+$I$ đối xứng với $E$ qua $N$, nên $N$ là trung điểm của $IE$. Nhưng $N$ cũng là trung điểm của $BC$, nên $BECI$ là hình bình hành. Như vậy, ta có $BE // CI, CE // BI$, và $\hat{EBC} = \hat{BCI} = C/2, \hat{ECB} = \hat{CBI} = B/2$. Ta cũng có $\hat{BEC} = 180^o - \hat{EBC} - \hat{ECB} = 180 - B/2 - C/2$ và $\hat{BMC} = 180^o - A$. Nhưng $C < B < A$, nên $B/2 + C/2 < A/2 + A/2 = A$. Suy ra là $\hat{BMC} = 180^o - A < 180^o - B/2 - C/2 = \hat{BEC}$. Nói cách khác, $E$ phải nằm trong tam giác $BMC$.
+\\
+\\
+Mặt khác, cho $EH$ vuông góc với $BC$ tại $H$ ($H$ thuộc đoạn thẳng $BC$ vì ta đã chứng minh $E$ nằm trong tam giác $BMC$). Vì $\hat{EBC} = C/2 < B/2 = \hat{ECB}$, ta có $BH > CH$, suy ra $H$ thuộc đoạn thẳng $CN$. Như vậy $E$ nằm trong tam giác nhỏ hơn $CMN$. Khi đó, tia $ME$ nằm giữa tia $MC$ và tia $MN$. Ta chứng minh tia $MN$ lại nằm giữa tia $MA$ và $MC$, từ đó suy ra được tia $ME$ nằm giữa tia $MA$ và $MC$, và ta sẽ có $ME$ cắt $(O)$ tại cung nhỏ $AC$. Thật vậy, ta có thể tính 2 góc $\hat{CMN} = \hat{CMB}/2 = 90^o - A/2$ và $\hat{CMA} = B$. Đặt $x = A/2 + B, y = A/2 + C$, ta thấy $x + y = A + B + C = 180^o$ và $x > y$ (vì $B > C$), cho nên $x$ phải lớn hơn $90^o$. Nói cách khác, $A/2 + B > 90^o$, cho nên $\hat{CMA} > 90^o - A/2 = \hat{CMN}$, tức là tia $MN$ nằm giữa tia $MC$ và $MA$. Ta kết luận $Q$ nằm trên cung nhỏ $AC$.
+\\
+\\
+2/
+\begin{center}
+	\includegraphics[scale=0.75]{img/NSC-3b.PNG}
+\end{center}
+Cho $F$ đối xứng với $I$ qua trung điểm của $AB$ (hay nói cách khác, $BFAI$ là hình bình hành), và $U$ là điểm chính giữa của cung $AB$ nhỏ (trên $(O)$). Ta chứng minh $F, U, Q$ thẳng hàng trước. Cho $FU$ cắt $ME$ tại $P$ (không nhất thiết $P \in (O)$).
+\begin{enumerate}
+	\item Ta có $\hat{FBU} = \hat{FBA} - \hat{UBA} = \hat{BAI} - (90 - \hat{BUA}/2) = A/2 - [90 - (90 - C/2)] = A/2 - C/2$. Tương tự, ta cũng có $\hat{MBE} = \hat{MBC} - \hat{CBE} = 90 - \hat{BMC}/2 - C/2 = 90 - (90 - A/2) - C/2 = A/2 - C/2$, nên $\hat{FBU} = \hat{MBE}$.
+	\item Mặt khác, $CI$ là phân giác góc $C$ nên $CI$ cắt cung nhỏ $AB$ tại điểm chính giữa, tức là $U$. Tương tự, ta cũng có $AI$ cắt cung nhỏ $BC$ tại điểm chính giữa $M$. Như vậy, 2 tam giác $AUI$ và $CMI$ đồng dạng , cho nên $\frac{AU}{CM} = \frac{AI}{CI}$. Nhưng $UA = UB, MC = MB, AI = BF, CI = BE$, ta suy ra được $\frac{BU}{BM} = \frac{BF}{BE}$.
+\end{enumerate}
+Gộp 2 điều trên, ta có tam giác $FBU$ đồng dạng tam giác $EBM$. Khi đó $180^o - \hat{BUP} = \hat{BUF} = \hat{BME} = \hat{BMP}$, hay nói cách khác, tứ giác $BMPU$ nội tiếp $(O)$ (vì $BMU$ đã nội tiếp $(O)$). Vì $ME$ cắt $(O)$ tại $Q$, ta thấy $P \equiv Q$. Như vậy, $F, U, Q$ thẳng hàng.
+\\
+\\
+Dùng công thức sin trong tam giác $QBA$ và $QBC$, ta có:
+\begin{align*}
+\frac{QA}{QB} & = \frac{\sin ABQ}{\sin BAQ} = \frac{\sin AUQ}{\sin BUQ} \\
+\frac{QC}{QB} & = \frac{\sin CBQ}{\sin BCQ} = \frac{\sin CMQ}{\sin BMQ}
+\end{align*}
+Vì $\hat{BUQ} = 180^o - \hat{BMQ} = \beta$, ta có $\sin BUQ = \sin BMQ$. Để chứng minh $QB = QA + QC$, hay $1 = \frac{QA}{QB} + \frac{QC}{QB} = \frac{\sin AUQ}{\sin \beta} + \frac{\sin CMQ}{\sin \beta}$, ta có thể chứng minh $\sin AUQ + \sin CMQ = \sin \beta$. Dùng định lý Céva sin cho tam giác $UAB$ với $AF, BF, UQ$ đồng quy tại $F$, ta có (để ý $\hat{UAF} = \hat{BAF} - \hat{BAU} = B/2 - C/2$
+\begin{align*}
+\frac{\sin AUF}{\sin BUF} \cdot \frac{\sin UBF}{\sin ABF} \cdot \frac{\sin BAF}{\sin UAF} & = 1
+\\
+\frac{\sin AUQ}{\sin \beta} \cdot \frac{\sin \frac{A-C}{2}}{\sin \frac{A}{2}} \cdot \frac{\sin \frac{B}{2}}{\sin \frac{B - C}{2}} & = 1
+\\
+\frac{\sin AUQ}{\sin \beta} & = \frac{\sin \frac{A}{2} \sin \frac{B - C}{2}}{\sin \frac{B}{2} \sin \frac{A-C}{2}}
+\end{align*}
+Tương tự, áp dụng định lý Céva sin cho tam giác $CMB$ với $CE, BE, MQ$ đồng quy tại $E$, ta có
+\begin{align*}
+\frac{\sin CMQ}{\sin \beta} & = \frac{\sin \frac{C}{2} \sin \frac{A - B}{2}}{\sin \frac{B}{2} \sin \frac{A-C}{2}}
+\end{align*}
+Nhưng
+\begin{align*}
+\sin \frac{C}{2} \sin \frac{A - B}{2} + \sin \frac{A}{2} \sin \frac{B - C}{2} & = \sin \frac{C}{2} \left( \sin \frac{A}{2} \cos \frac{B}{2} - \cos \frac{A}{2} \sin \frac{B}{2} \right)
+\\
+& \qquad + \sin \frac{A}{2} \left( \sin \frac{B}{2} \cos \frac{C}{2} - \cos \frac{B}{2} \sin \frac{C}{2} \right)
+\\
+& = - \sin \frac{C}{2} \cos \frac{A}{2} \sin \frac{B}{2} + \sin \frac{A}{2} \sin \frac{B}{2} \cos \frac{C}{2}
+\\
+& = \sin \frac{B}{2} \left( \sin \frac{A}{2} \cos \frac{C}{2} - \sin \frac{C}{2} \cos \frac{A}{2} \right)
+\\
+& = \sin \frac{B}{2} \sin \frac{A - C}{2}
+\end{align*}
+Cho nên gộp $\frac{\sin AUQ}{\sin \beta}$ và $\frac{\sin CMQ}{\sin \beta}$ lại, ta sẽ có
+\begin{align*}
+\frac{\sin AUQ + \sin CMQ}{\sin \beta} & = \frac{\sin \frac{A}{2} \sin \frac{B - C}{2} + \sin \frac{C}{2} \sin \frac{A - B}{2}}{\sin \frac{B}{2} \sin \frac{A-C}{2}} = 1
+\\
+\sin AUQ + \sin CMQ & = \sin \beta = \sin BUQ = \sin BMQ
+\end{align*}
+Ta kết luận $BQ = AQ + CQ$.
+\end{proof}
+\ \\
+\begin{exercise}
+Tìm tất cả số tự nhiên $n$ sao cho $7^n + 147$ là số chính phương.
+\end{exercise}
+\begin{remark}
+Đưa về tích, lũy thừa, thử modulô.
+\end{remark}
+\begin{proof}
+Ta sẽ đi tìm nghiệm nguyên $(n, x)$ của phương trình $7^n + 147 = x^2$. Nếu $n$ chẵn, $n = 2k$ (với $k \geq 0$), ta có $3 \cdot 7^2=147 = x^2 - 7^{2k} = (x - 7^k)(x + 7^k)$. Để ý $x + 7^k > x - 7^k$, cho nên ta có thể xét những trường hợp sau
+\begin{enumerate}
+	\item Nếu $x - 7^k = 1, x + 7^k = 147$: ta có $2 \cdot 7^k = 146$, hay $7^k = 73$ (vô nghiệm).
+	\item Nếu $x - 7^k = 3, x + 7^k = 49$: ta có $2 \cdot 7^k = 46$, hay $7^k = 23$ (vô nghiệm).
+	\item Nếu $x - 7^k = 7, x + 7^k = 21$: ta có $2 \cdot 7^k = 14$, hay $k = 1$. Thử $n = 2k = 2$, ta có $7^2 + 147 = 196 = 14^2$ là số chính phương, cho nên $n = 2$ là một nghiệm của bài.
+\end{enumerate}
+Nếu $n$ lẻ, $n = 2k + 1$ (với $k \geq 0$), ta có $x^2 = 7^{2k + 1} + 147 = 7 (7^{2k} + 21)$. Như vậy, $x$ chia hết cho $7$. Đặt $x = 7y, y \geq 0$ và thế lại vào phương trình, ta có $49y^2 = 7 (7^{2k} + 21)$, hay $y^2 = 7^{2k - 1} + 3$ (như vậy $k \geq 1$ để vế phải là số nguyên). Lấy modulo $4$, ta thấy
+\begin{align*}
+y^2 & = 7^{2k - 1} + 3 \equiv (-1)^{2k - 1} + 3 = 2 \pmod{4}
+\end{align*}
+Như vậy $y^2$ chia hết cho $2$, nhưng lại không chia hết cho $4$ (vô lý). Ta kết luận $n = 2$ là nghiệm duy nhất của bài sao cho $7^n + 147$ là số chính phương.
+\end{proof}
+\ \\
+\begin{exercise}
+Một hội nghị Toán học quốc tế có 2011 nhà toán học tham dự. Biết rằng 1 nhà toán học bất kì trong số đó quen biết ít nhất với 1509 nhà toán học khác. Hỏi có thể lập ra 1 tiểu ban gồm 5 nhà toán học mà người bất kì nào trong 5 người đó đều quen biết những người còn lại của tiểu ban đó?  
+\end{exercise}
+\begin{remark}
+Định lý Turán: có thể chứng minh bằng quy nạp (chia đồ thị ra), cực trị.
+\\
+Cách khác: bỏ đỉnh và quy nạp.
+\end{remark}
+\begin{proof}
+Ta chứng minh bằng quy nạp rằng nếu có $n \geq 5$ nhà toán học sao cho mỗi người quen ít nhất $\lfloor 3n/4 \rfloor + 1$ người khác (hoặc $> 3n/4$), ta có thể lập một tiểu ban như trên. Xét các bước cơ sở sau
+\begin{enumerate}
+	\item $n = 5$: mỗi người quen ít nhất $\lfloor 3 \cdot 5/4 \rfloor + 1 = 4$ người khác. Nhưng hội nghị chỉ có 5 người, cho nên mọi người quen nhau. Chọn 5 người đó làm tiểu ban.
+	\item $n = 6$: mỗi người quen ít nhất $\lfloor 3 \cdot 6/4 \rfloor + 1 = 5$ người khác. Tương tự như trên, ta thấy họ phải quen nhau hết. Chọn 5 người bất kỳ làm tiểu ban
+	\item $n = 7$: tương tự như $n = 6$ (vì mỗi người quen ít nhất $\lfloor 3 \cdot 7/4 \rfloor + 1 = 6$ người khác).
+	\item $n = 8$: tương tự như $n = 6$ (vì mỗi người quen ít nhất $\lfloor 3 \cdot 8/4 \rfloor + 1 = 7$ người khác).
+\end{enumerate}
+Bước quy nạp: chọn nhóm người $H = \{ a_1, a_2, \hdots, a_k \}$ quen biết lẫn nhau nhiều nhất có thể. Nếu $k \geq 5$ thì ta chọn 5 người bất kỳ trong nhóm làm thành 1 tiểu ban. Còn không, nếu $k \leq 4$, ta sẽ chứng minh điều vô lý. Bởi tính cực trị của $H$, những người ngoài nhóm $H$ không thể nào quen tất cả những người trong nhóm $H$. Nếu ta đặt $d_{p/H}$ cho số người trong nhóm $H$ mà một người $p \notin H$ ngoài nhóm quen, thì ta luôn có $d_{p/H} \leq k - 1$.
+\begin{enumerate}
+	\item Nếu $k = 4$: loại nhóm $H$ ra, ta còn lại $n - 4$ người. Mỗi người còn lại $p$ phải quen $> 3n/4 - d_{p/H} \geq 3n/4 - 3 = 3(n-4)/4$ người khác. Theo quy nạp cho $n-4$, tồn tại 5 người sao cho họ quen nhau, trái với giả sử cực trị trên $H$.
+	\item Nếu $k = 3$: loại nhóm $H$ ra, ta còn lại $n - 3$ người. Mỗi người còn lại $p$ phải quen $> 3n/4 - d_{p/H} \geq 3n/4 - 2 = (3n - 8)/4 > 3(n-3)/4$. Tương tự như trường hợp trên $k = 4$, ta có điều vô lý.
+	\item Nếu $k = 2$: tương tự như $k = 3$.
+\end{enumerate}
+Cho $n = 2011$, ta cần mỗi nhà toán học quen ít nhất $\lfloor 3n/4 \rfloor + 1 = 1509$ người khác. Nhưng đó là giả thuyết ta có, cho nên luôn lập được một tiểu ban như đề bài yêu cầu.
+\\
+\\
+\underline{Lưu ý:} khi bỏ đỉnh, ta bỏ nhiều nhất 4 đỉnh, mỗi đỉnh còn lại kề nhiều nhất 3 đỉnh trong nhóm đỉnh bị bỏ (vì đồ thị không chứa $K_5$). Cho nên, bậc của mỗi đỉnh giảm đi 3 là nhiều nhất. Ta chọn $3n/4 < n$ vì khi trừ đi $3$, ta thấy $n$ giảm đi $4$, trùng với số đỉnh bị bỏ đi!
+\end{proof}
+
+\newpage
+
+\section{Chuẩn bị VMO 2011}
+\begin{exercise}
+Định nghĩa dãy $x_n$ bởi
+\begin{align*}
+\begin{cases}
+x_0 & = -2 \\
+x_n & = \frac{1 - \sqrt{1 - 4 x_{n - 1}}}{2}
+\end{cases}
+\end{align*}
+Cho $u_n = n x_n$ và $v_n = \prod_{i = 0}^n (1 + x_i^2)$, chứng minh rằng $u_n, v_n$ hội tụ.
+\end{exercise}
+\begin{remark}
+Sai phân, bất đẳng thức (cho $v_n$)
+\begin{align*}
+1 + \sum_{k = 1}^n a_k \leq \prod_{k = 1}^n (1 + a_k) \leq e^{\sum_{k = 1}^n a_k}
+\end{align*}
+\end{remark}
+\begin{proof}
+Quan sát
+\begin{enumerate}
+	\item $\left( 1 - 2x_n \right)^2 = 1 - 4 x_{n - 1}$
+	\item $x_n$ là nghiệm (âm) của phương trình $x^2 - x + x_{n - 1} = 0$. Nói cách khác, $x_{n - 1} = x_n (1 - x_n)$.
+\end{enumerate}
+Ta chứng minh $x_n$ âm với mọi $n$. Thật vậy, nếu $x_{n - 1} < 0$, ta có $\sqrt{1 - 4x_{n - 1}} > 1$, cho nên $x_n = \frac{1 - \sqrt{1 - 4x_n}}{2} < 0$ và $u_n = n x_n < 0$. Ta cũng có $x_{n - 1} = x_n (1 - x_n) < x_n$ ($1 - x_n > 1$), cho nên dãy $x_n$ tăng. Cùng với việc $x_n$ chặn trên bởi $0$, ta có $x_n$ hội tụ. Đặt $X = \lim_{n \to \infty} x_n \leq 0$, ta lấy giới hạn 2 vế của $x_{n - 1} = x_n (1 - x_n)$ để được $X = X (1 - X)$. Giải phương trình, ta được $\lim_{n \to \infty} x_n = X = 0$.
+\\
+\\
+*Để chứng minh $v_n$ hội tụ, ta nhớ lại bất đẳng thức $1 + x \leq e^x$ với mọi $x \geq 0$. Áp dụng cho $v_n$, ta có
+$$v_n = \prod_{i = 0}^n (1 + x_i^2) \leq e^{\sum_{i = 0}^n x_i^2}$$
+Mặt khác, $x_{n - 1} = x_n (1 - x_n)$, cho nên $x_n^2 = x_n - x_{n - 1}$. Cộng lại, ta có $\sum_{i = 0}^n x_i^2 = (x_n - x_{n - 1}) + (x_{n - 1} - x_{n - 2}) + \cdots + (x_1 - x_0) + x_0^2 = x_n + 6$. Với bất đẳng thức trên, ta được
+$$v_n \leq e^{x_n + 6} \leq e^{x_0 + 6} = e^4$$
+Như vậy $v_n$ có chặn trên, và $v_n$ tăng (bởi vì $v_n = v_{n - 1} (1 + x_n^2) \geq v_{n - 1}$), cho nên $v_n$ hội tụ.
+\\
+\\
+*Để chứng minh $u_n$ hội tụ, lưu ý $x_n$ tăng nhưng luôn luôn âm, nên $x_n^2$ giảm. Dùng đẳng thức $x_n^2 = x_n - x_{n - 1}$ như ta đã làm với $v_n$, ta có [???]
+\end{proof}
+\ \\
+\begin{exercise}
+Cho $A$ là một tập con hữu hạn của số thực dương, đặt $B = \{ x/y : x, y \in A \}$ và $C = \{ xy : x, y \in A \}$. Chứng minh rằng $|A| \cdot |B| \leq |C|^2$.
+\end{exercise}
+\begin{proof}
+\begin{align*}
+f: A^3 & \to C^2 \\
+(\lambda, x, y) & \mapsto (\lambda x, \lambda y) \\
+f(\lambda, x, y) = f(\kappa, z, w) & \Rightarrow \exists b \in B: b = \frac{x}{y} = \frac{z}{w} \\
+& \\
+g: K(f) & \to B \\
+[(\lambda, x, y)]_f & \mapsto \frac{x}{y} \\
+h_{x_0, y_0}: A & \xhookrightarrow{} K(f) \\
+\lambda & \mapsto [(\lambda, x_0, y_0)]_f \\
+h_{x_0, y_0} (A) \subseteq \ker_{x_0/y_0} g & = \{ [(\lambda, x, y)]_f : \frac{x}{y}=\frac{x_0}{y_0} \} \\
+[(\lambda, x, y)]_f \notin h_{x_0, y_0} (A) & \Leftrightarrow \forall \kappa \in A: f(\lambda, x, y) \neq f(\kappa, x_0, y_0) \\
+& \Leftrightarrow \neg [\exists \kappa \in A: (\lambda x, \lambda y) = (\kappa x_0, \kappa y_0)] \\
+& \Leftrightarrow \neg [\exists \kappa \in A: \lambda x = \kappa x_0 \wedge \lambda y = \kappa y_0] \\
+& \Leftrightarrow \neg [\exists \kappa \in A: \kappa = \frac{\lambda x}{x_0} = \frac{\lambda y}{y_0}] \\
+& \Leftrightarrow \frac{\lambda x}{x_0} \notin A \vee \frac{\lambda y}{y_0} \notin A
+& \\
+j_{x_0} : A & \to C
+\alpha \mapsto \alpha x_0
+
+\end{align*}
+
+\end{proof}
+
+\newpage
+
+\section{Chuẩn bị VMO 2012}
+\begin{exercise}
+Cho $a, b, c > 0$ sao cho $abc = 1$, chứng minh rằng $a^3 + b^3 + c^3 + 6 \geq (a + b + c)^2$
+\end{exercise}
+\begin{remark}
+Bất đẳng thức Cauchy-Schwarz
+\end{remark}
+\begin{proof}
+Áp dụng Cauchy-Schwarz, ta có
+\begin{align*}
+a^3 + a^3 + 1 & \geq 3a^2 \\
+b^3 + b^3 + 1 & \geq 3b^2 \\
+c^3 + c^3 + 1 & \geq 3c^2 \\
+a^3 + b^3 + 1 & \geq 3ab \\
+b^3 + c^3 + 1 & \geq 3bc \\
+c^3 + a^3 + 1 & \geq 3ca
+\end{align*}
+Cộng 3 biểu thức đầu, với 2 lần của 3 biểu thức sau ta được.
+\begin{align*}
+(2a^3 + 2b^3 + 2c^3 + 3) + 2 (2a^3 + 2b^3 + 2c^3 + 3) \geq (3a^2 + 3b^2 + 3c^2)+ 2(3ab + 3bc + 3ca) \\
+6a^3 + 6b^3 + 6c^3 + 9
+\end{align*}
+\end{proof}
+
+\newpage
+
+\section{Gauss sum}
+
+
+\end{document}
