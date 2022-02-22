@@ -1,0 +1,670 @@
+\documentclass{article}
+
+%% Load additional packages
+\usepackage[utf8]{inputenc}
+\usepackage[none]{hyphenat}
+\usepackage[backend=biber, dateabbrev=false]{biblatex}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor, framed}
+
+\colorlet{shadecolor}{yellow}
+
+%% Define additional commands
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{remark}[theorem]{Remark}
+
+%% Set parameters
+\setlength\parindent{0pt}
+
+\title{Dirichlet series}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Arithmetic function}
+An \emph{arithmetic function} $f$ is defined to be a map from $\mathbb{N}_{> 0}$ to the complex numbers $\mathbb{C}$. Assuming $f$ is not identically zero (i.e. assign $0$ to every number)
+\begin{enumerate}
+	\item It is \emph{multiplicative} if $f(mn) = f(m) f(n)$ for any co-prime $m, n$.
+	\item It is \emph{completely multiplicative} if such identity holds for \text{any} positive integers $m, n$.
+\end{enumerate}
+\begin{remark} \ 
+\begin{enumerate}
+	\item A completely multiplicative function is always multiplicative.
+	\item The value at $1$ of an multiplicative function is $1$.
+	\item A multiplicative function is uniquely defined by its values at prime powers. A completely multiplicative function is uniquely defined by its values at primes.
+\end{enumerate}
+\end{remark}
+\begin{proof}
+\underline{Part 1:} straight from definition.
+\\
+\underline{Part 2:} plug in the definition the values $m = n = 1$ (which are relatively prime), we get $f(1) = f(1)^2$. If $f(1) = 0$, then $f(m) = f(1) f(m) = 0$ for all $m \geq 1$, contradicting the definition of an arithmetic function. Thus, $f(1) = 1$.
+\\
+\underline{Part 3:} this follows from the unique factorization of an integer as product of distinct prime powers. For completely multiplicative function $f$, we can reduce the value of $f$ at the prime powers to just the values at prime, as $f(p^k) = f(p)^k$.
+\end{proof}
+\begin{example} \ 
+\begin{enumerate}
+	\item The map $\varepsilon(n) = 1$ if $n = 1$, and $\varepsilon(n) = 0$ otherwise. This map is completely multiplicative.
+	\\
+	\\
+	In terms of Kronecker delta $\delta_{ij}$ (where it is $0$ if $i \neq j$ and $1$ otherwise), we can simply write $\varepsilon(n) = \delta_{n1}$.
+	\item The \emph{unit map} $1(n) = 1$ for all $n \geq 1$. This map is also completely multiplicative.
+	\item The identity map $\operatorname{id} (n) = n$ is completely multiplicative.
+\end{enumerate}
+\end{example}
+\begin{proof} \ \\
+\underline{Part 1:} let $m, n$ be integers. We consider 2 cases
+\begin{enumerate}
+	\item One of $m, n$ is $1$: wlog, say $m = 1$, we then get $\varepsilon(mn) = \varepsilon(n) = \varepsilon(m) \varepsilon(n)$
+	\item $m, n > 1$: then $\varepsilon(mn) = 0 = \varepsilon(m) \varepsilon(n)$
+\end{enumerate}
+\underline{Part 2, 3:} straight from definition
+\begin{align*}
+1(mn) & = 1 = 1(m) 1(n) \\
+\operatorname{id} (mn) & = mn = \operatorname{id} (m) \operatorname{id} (n)
+\end{align*}
+\end{proof}
+\begin{example}[Dirichlet characters]
+An arithmetic function $\chi: \mathbb{N}_{> 0} \to \mathbb{C}$ is a \emph{Dirichlet character modulo $n$} iff
+\begin{itemize}
+	\item It is completely multiplicative.
+	\item $\chi(a) = 0$ iff $a, n$ are not relatively prime. If $n = p$ is prime, then simply $\chi(a) = 0$ if and only if $a$ is divisible by $p$.
+	\item It is periodic with period $n$, i.e. $\chi(a + n) = \chi(a)$ for all $a \geq 1$.
+	\\
+	\underline{Note:} it may have smaller period, which classifies whether a character is \emph{primitive} or not.
+\end{itemize}
+There are 2 distinguished examples
+\begin{enumerate}
+	\item The \emph{principal} character $\chi_0$ modulo $n$, which is defined as below
+	$$\chi_0 (a) = \begin{cases}
+		1 & \mbox{ if } \gcd(a, n) = 1 \\
+		0 & \mbox{ otherwise}
+	\end{cases}$$
+	\item The Legendre symbol $a \mapsto (a/p)$ for $p$ odd prime, which is a non-trivial character modulo $p$. It has order $2$ since the square is always 1 except when $p \mid a$.
+\end{enumerate}
+\begin{proof}
+For the principal Dirichlet character modulo $n$
+\begin{enumerate}
+	\item $\chi_0$ is multiplicative: let $\gcd(a, b) = 1$. Consider the 2 following cases
+	\begin{enumerate}
+		\item One of $a, b$ is not relatively prime to $n$: then $ab$ is also not relatively prime to $n$, and thus, $\chi_0 (ab) = 0 = 0 \cdot 0 = \chi_0 (a) \chi_0 (b)$. 
+		\item Both are relatively prime to $n$: then $ab$ is also relatively prime to $n$, and thus, $\chi_0 (ab) = 1 = 1 \cdot 1 = \chi_0 (a) \chi_0 (b)$.
+	\end{enumerate}
+\end{enumerate}
+For the multiplicativity of Legendre symbol, see the chapter about Gauss/Jacobi sum. The other 2 properties are relatively straightforward since $(0/p) = 0$ by definition, and $(a/p)$ only depends on the congruence class of $a$ (also by definition).
+\end{proof}
+\end{example}
+\begin{example}[Filtrated Euler totient function]
+An integer sequence $A = (a_n)_{n = 1}^\infty$ is \emph{poly-divisible} iff $a_i - a_j$ is divisible by $i - j$ for all $i \neq j$.
+\\
+\\
+Given such poly-divisible sequence $A$, the \emph{Euler function associated with $A$}, denoted as $\varphi_A$, counts the number indices $1 \leq k \leq n$ such that $\gcd(a_k, n) = 1$
+$$\varphi_A (n) = \left| \{ 1 \leq k \leq n : \gcd(a_k, n) = 1 \} \right|$$
+Prove that
+	\begin{enumerate}
+		\item $\varphi_A$ is multiplicative.
+		\item $\varphi_A (p^t) = p^{t - 1} \varphi_A (p)$ for all prime $p$ and $t \geq 1$.
+	\end{enumerate}
+\end{example}
+When $a_n = n$ for all $n \geq 1$, we simply call $\varphi := \varphi_A$ the \emph{Euler totient function}.
+\begin{proof}*The Euler function associated with a poly-divisible sequence: the base case $\varphi_A (1) = 1$ holds since every integer is relatively prime to $1$. Denote $G_n^A = \{ 1 \leq k \leq n : \gcd(a_k, n) = 1 \}$, so that $\varphi_A (n)$ is just the cardinality of $G_n^A$. To show it is multiplicative, let $m, n \geq 1$ be co-prime integers, we need to show that there is a correspondence between $G_{mn}^A$ and $G_m^A \times G_n^A$.
+\begin{enumerate}
+	\item Let $k \mapsto (k \bmod{m}, k \bmod{n})$ be the map from $G_{mn}^A$ to $G_m^A \times G_n^A$. It is well-defined since, if we let $u = k \bmod{m} \in [1, m]$, then $m \mid k - u \mid a_k - a_u$, or equivalently, $a_k \equiv a_u \pmod{m}$. Yet, $\gcd(a_k, mn) = 1$ by definition, so $\gcd(a_k, m) = 1$ and hence, $\gcd(a_u, m) = 1$. By definition, $u = k \bmod{m} \in G_m^A$. Similarly, $k \bmod{n} \in G_n^A$.
+	\item The inverse of the previous map requires us to find a unique $k \in \mathbb{G}_{mn}^A$ associated with a given pair $(u, v) \in \mathbb{G}_m^A \times \mathbb{G}_n^A$ such that $k \equiv u \pmod{m}$ and $k \equiv v \pmod{n}$.
+	\\
+	\\
+	Since $\gcd(m, n) = 1$, there exists a unique $1 \leq k \leq mn$ such that $k \equiv u \pmod{m}$ and $k \equiv v \pmod{n}$ (Chinese remainder theorem). On the other hand, since $m \mid k - u \mid a_k - a_u$, we know that $\gcd(a_k, m) = \gcd(a_u, m) = 1$. Similarly, $\gcd(a_k, m) = \gcd(a_v, n) = 1$. Again, since $\gcd(m, n) = 1$, we necessarily have $\gcd(a_k, mn) = 1$, so $k$ should be in $G_{mn}^A$.
+\end{enumerate}
+\ \\
+*For the identity $\varphi_A (p^t) = p^{t - 1} \varphi_A (p)$, we will find a correspondence between $G^A_{p^t}$ and $G_{p^{t - 1}} \times G^A_{p}$, where $G_n = \mathbb{Z}/n \mathbb{Z} = \{ k : 0 \leq k \leq n - 1 \}$, in order to show such. To do this, we use ideas from Hensel lemma
+\begin{enumerate}
+	\item Suppose $k \in G^A_{p^t}$, let $r = k \bmod{p} \in [1, p]$ and $q = (k - r)/p$. Since $1 \leq k \leq p^t$
+	\begin{align*}
+	q & \geq \left\lceil \frac{1 - p}{p} \right\rceil = 0 \\
+	q & \leq \left\lfloor \frac{p^t - 1}{p} \right\rfloor = p^{t - 1} - 1
+	\end{align*}
+	Thus, $q \in G_{p^{t - 1}}$. To show the map $k \mapsto (q, r)$ from $G^A_{p^t}$ to $G_{p^{t - 1}} \times G^A_p$, we need $r \in G^A_p$. Indeed, since $p \mid k - r \mid a_k - a_r$, we get $\gcd(a_r, p) = \gcd(a_k, p) = 1$. 
+	\item Given $(q, r) \in G_{p^{t - 1}} \times G^A_p$, the inverse map requires us to construct a unique $k \in G^A_{p^t}$ such that $k \equiv r \pmod{p}$, and $q = (k - r)/p$. Basically, $k = q \cdot p + r$. Since $0 \leq q < p^{t - 1}, 1 \leq r \leq p$, we have
+	\begin{align*}
+	k & \geq 0 \cdot p + 1 = 1 \\
+	k & \leq (p^{t - 1}-1) p + p = p^t
+	\end{align*}
+	Furthermore, since $k \equiv r \pmod{p}$, we get $p \mid k - r \mid a_k - a_r$, so $\gcd(a_k, p) = \gcd(a_r, p) = 1$, which implies $a_k$ is relatively prime to any power of $p$. In other words, $k \in G_{p^t}^A$.
+\end{enumerate}
+\end{proof}
+\begin{example}[More constructions] \ 
+\begin{enumerate}
+	\item Pointwise product: the product of multiplicative functions is multiplicative. The product of completely multiplicative functions is completely multiplicative.
+	\item Inverse: suppose a function is non-zero at every natural number. Then its inverse is multiplicative if it is multiplicative, and its inverse is completely multiplicative if it is completely multiplicative.
+	\item Non-integer power of a function: let $\alpha$ be a real number, and $f: \mathbb{N}_{> 0} \to \mathbb{R}_{> 0}$ be an arithemtic function on positive reals.
+	\begin{enumerate}
+		\item If $f$ is multiplicative, then $f^\alpha$ is multiplicative.
+		\item If $f$ is completely multiplicative, then $f^\alpha$ is completely multiplicative.
+	\end{enumerate}
+	A quintessential example of this construction is the power map $\operatorname{id}^\alpha (n) = n^\alpha$, which is completely multiplicative.
+	\item Composition: let $f: \mathbb{N}_{> 0} \to \mathbb{N}_{> 0}$ and $g: \mathbb{N}_{> 0} \to \mathbb{C}$ be arithmetic functions. Suppose furthermore that one of the following holds
+	\begin{enumerate}
+		\item $g$ is completely multiplicative.
+		\item $g$ is multiplicative, and $f$ forms a \emph{strong divisibility sequence}, i.e. for all positive integers $m, n$
+		$$\gcd(f(n), f(m)) = f(\gcd(m, n))$$
+	\end{enumerate}
+	then $g \circ f$ is multiplicative whenever $f$ is multiplicative.
+	\\
+	\\
+	An highly non-trivial example of this construction is
+	$$h(n) = \gcd(F_n, k)$$ where $F_n$ denotes the $n$-th Fibonacci number, and $k$ is a fixed positive integer. We will not discuss on why the Fibonacci numbers forms a strong divisibility sequence.
+	\item Exponentiation: define a function $w: \mathbb{N}_{> 0} \to \mathbb{C}$ to be \emph{additive} if $w(mn) = w(m) + w(n)$ for relative prime $m, n$. $w$ is completely additive if the equality holds for arbitrary $m, n$.
+	\\
+	\\
+	Show that the function $f(n) = e^{w(n)}$ is a multiplicative function if $w$ is additive. $f$ is completely multiplicative if $w$ is completely additive.
+	\\
+	\\
+	For example, the Liouville function $\lambda(n) = (-1)^{\Omega(n)}$ is completely multiplicative, where $\Omega(n)$ counts the number of primes (with multiplicity) of $n$.
+	\item Indicator function: let $A$ be a subset of the positive integers, and $1_A$ be the \emph{indicator function} on $A$
+	$$1_A (n) = \begin{cases}
+	1 & \mbox{ if } n \in A \\
+	0 & \mbox{ if } n \notin A \\
+	\end{cases}$$
+	Prove that
+	\begin{enumerate}
+		\item $1_A$ is multiplicative iff whenever $m, n$ are co-prime (positive) integers, we get $mn \in A$ iff $m, n \in A$.
+		\item $1_A$ is completely multiplicative iff given integers $m, n$, then $mn \in A$ iff $m, n \in A$.
+	\end{enumerate}
+	\underline{Note 1:} the unit map is just the indicator function on the set of all positive integers ($1 = 1_{\mathbb{N}_{>0}}$).
+	\\
+	\underline{Note 2:} the principal Dirichlet character modulo $n$ is the indicator function on the set of all positive integers co-prime to $n$.
+\end{enumerate}
+\end{example}
+\begin{proof}
+All of these results are relatively evident. We only clarify parts 4-6 for readers who wish to check their work.
+\\
+\underline{Part 4:} suppose $g$ is completely multiplicative, then $g(f(mn)) = g(f(m) f(n)) = g(f(m)) g(f(n))$, which shows that $g \circ f$ is either multiplicative or completely multiplicative depending on whether $m, n$ are co-prime, and whether $f$ is completely multiplicative or just multiplicative. On the other hand, suppose $g, f$ are multiplicative such that $f$ forms a strong divisibility sequence, then $f(mn) = f(m) f(n)$ and $\gcd(f(m), f(n)) = 1$ whenever $\gcd(m, n) = 1$. Since $g$ is multiplicative, we get $g(f(mn)) = g(f(m) f(n)) = g(f(m)) g(f(n))$.
+\\
+\underline{Part 5:} since $f(mn) = e^{w(mn)} = e^{w(m) + w(n)} = e^{w(m)} e^{w(n)} = f(m) f(n)$ formally, $f$ is multiplicative (resp. completely multiplicative) if $g$ is additive (resp. completely additive). For the Liouville function
+\begin{enumerate}
+	\item Based on the factorization $n = \prod_{i} p_i^{\alpha_i}$ and $m = \prod_i p_i^{\beta_i}$, $\Omega$ must be completely additive
+	$$\Omega(m) + \Omega(n) = \sum_i \alpha_i + \sum_i \beta_i = \sum_i (\alpha_i + \beta_i) = \Omega(mn)$$
+	\item Since $e^{i \pi} = -1$, we know that $\lambda(n) = (-1)^{\Omega(n)} = e^{i \pi \Omega(n)}$ must be completely additive. This relies on the fact that any multiple of additive (resp. completely additive) function is also additive (resp. completely additive), which is left to the reader.
+\end{enumerate}
+\underline{Part 6:} $1_A$ is multiplicative iff $1_A (mn) = 1_A (m) 1_A (n)$ whenever $m, n$ are relatively prime. When both side equal to $1$ (and thus every factor is equal to $1$), we have $mn \in A$ iff $1_A (mn) = 1$ iff $1_A (m) = 1_A (n) = 1$ iff $m, n \in A$. Vice versa, suppose $A$ satisfies such property. Then $1_A (mn) = 1$ iff $mn \in A$ iff $m, n \in A$ iff $1_A (m) = 1_A (n) = 1$, so $1_A (mn) = 1_A (m) 1_A (n) = 1$ in this case. Negating the whole equivalence, we have $1_A (mn) = 0$ iff $mn \notin A$ iff $m \notin A$ or $n \notin A$, iff $1_A (m) = 0$ or $1_A (n) = 0$, so $1_A (mn) = 1_A (m) 1_A (n) = 0$ for the remaining case. The complete multiplicativity case is similar.
+\end{proof}
+\begin{exercise}
+Suppose $f$ is multiplicative, show that
+$$f(m) f(n) = f(\gcd(m, n)) f(\operatorname{lcm} (m, n))$$ for \textit{any} integers $m, n$.
+\end{exercise}
+\begin{proof}
+Use factorization, and recall
+\begin{align*}
+\gcd \left( \prod_i p_i^{\alpha_i}, \prod_i p_i^{\beta_i} \right) & = \prod_i p_i^{\min \{ \alpha_i, \beta_i \}}
+\\
+\operatorname{lcm} \left( \prod_i p_i^{\alpha_i}, \prod_i p_i^{\beta_i} \right) & = \prod_i p_i^{\max \{ \alpha_i, \beta_i \}}
+\end{align*}
+\end{proof}
+\begin{remark}
+There is a more general identity, which has analogues in multiple areas of mathematics
+\begin{enumerate}
+	\item {[Set Theory]} Principle of inclusion-exclusion:
+	\begin{align*}
+	\left| \bigcup_{i = 1}^n A_i \right| & = \sum_{i = 1}^n |A_i| - \sum_{1 \leq i < j \leq n} |A_i \cap A_j| + \cdots
+	\\
+	& \qquad + (-1)^{k + 1} \sum_{1 \leq i_1 < \cdots < i_k \leq n} \left| \bigcap_{\ell = 1}^k A_\ell \right| + \cdots
+	\\
+	& \qquad + (-1)^{n + 1} |A_1 \cap \cdots \cap A_n|
+	\end{align*}
+	\item {[Algebra]} Principle of min-max:
+	\begin{align*}
+	\max_{1 \leq i \leq n} x_i & = \sum_{i = 1}^n x_i - \sum_{1 \leq i < j \leq n} \min \{ x_i, x_j \} + \cdots
+	\\
+	& \qquad + (-1)^{k + 1} \sum_{1 \leq i_1 < \cdots < i_k \leq n} \min \{ x_{i_1}, \hdots, x_{i_k} \} + \cdots
+	\\
+	& \qquad + (-1)^{n + 1} \min_{1 \leq i \leq n} x_i
+	\end{align*}
+	\item {[Number Theory]} Principle of gcd-lcm:
+	\begin{align*}
+	\operatorname{lcm}_{1 \leq i \leq n} a_i & = \prod_{i = 1}^n a_i \cdot \left[ \prod_{1 \leq i < j \leq n} \gcd(a_i, a_j) \right]^{-1} \cdots
+	\\
+	& \qquad \left[ \prod_{1 \leq i_1 < \cdots < i_k \leq n} \gcd(a_{i_1}, \hdots, a_{i_k}) \right]^{(-1)^{k + 1}} \cdots
+	\\
+	& \qquad \left[ \gcd_{1 \leq i \leq n} a_i \right]^{(-1)^{n + 1}}
+	\end{align*}
+	\item {[Number Theory - Multiplicative Function ver.]}
+	\begin{align*}
+	f \left( \operatorname{lcm}_{1 \leq i \leq n} a_i \right) & = \prod_{i = 1}^n f(a_i) \cdot \left[ \prod_{1 \leq i < j \leq n} f \left( \gcd(a_i, a_j) \right) \right]^{-1} \cdots
+	\\
+	& \qquad \left[ \prod_{1 \leq i_1 < \cdots < i_k \leq n} f \left( \gcd(a_{i_1}, \hdots, a_{i_k}) \right) \right]^{(-1)^{k + 1}} \cdots
+	\\
+	& \qquad \left[ f \left( \gcd_{1 \leq i \leq n} a_i \right) \right]^{(-1)^{n + 1}}
+	\end{align*}
+\end{enumerate}
+\end{remark}
+\begin{exercise}[Cyclic property of Euler totient]
+Show that $\sum_{d \mid n} \varphi(d) = n$
+\end{exercise}
+\begin{proof}
+The idea is to lift a \textit{reduced} congruence class modulo $d$ (the number of which is $\varphi(d)$) to a ``distinct'' congruence class modulo $n$ (the number of which is just $n$), so that no congruence class modulo $n$ are left when we exhausted all reduced classes and divisiors of $n$.
+\begin{enumerate}
+	\item For each $1 \leq t \leq d, d \mid n$ such that $\gcd(t, d) = 1$, then we send $t$ to the congruence class $s = t(n/d) \leq n$, which has additive order of $d$. Indeed, $ds = nt \equiv 0 \pmod{n}$. If $es \equiv 0 \pmod{n}$ for some $0 \leq e < d$, then $etn/d$ is divisible by $n$. Since $\gcd(t, d) = 1$, $e$ has to be divisible by $d$, a contradiction.
+	\\
+	\\
+	A consequence of this, is that for $1 \leq t_k \leq d_k$, $d_k \mid n$, and $\gcd(t_k, d_k) = 1$ ($k = 1, 2$), the respect congruence classes modulo $n$ of $t_1$ and $t_2$ must be difference, assuming $d_1 \neq d_2$.
+	\item How about, $t_1, t_2$ are reduced congruence classes of the same modulo $d$? They are also different when sent to modulo $n$ since if $t_1 (n/d) \equiv t_2 (n/d) \pmod{n}$, then $(t_1 - t_2) (n/d)$ must be divisible by $n$. Equivalently, $t_1 - t_2$ must be divisible by $d$, implying that $t_1 \equiv t_2 \pmod{d}$.
+\end{enumerate}
+Thus, the reduced congruence classes modulo $d$ for all $d \mid n$, are sent to different congruence classes modulo $n$.
+\\
+\\
+Is there any congruence classes modulo $n$ that are not represented by some reduced congruence classes modulo $d$ for some $d \mid n$? Desiringly, no. Logically, let $t$ be a congruence class modulo $n$, and $d = n/\gcd(n, t)$. Then
+\begin{enumerate}
+	\item $s = dt/n = t/\gcd(n, t) \in \mathbb{Z}$
+	\item $\gcd(s, d) = \gcd \left( \frac{n}{\gcd(n, t)}, \frac{t}{\gcd(n,t)} \right) = 1$
+\end{enumerate}
+So $s$ can be considered as a reduced congruence class modulo $d$. The map at the beginning then lifts $s$ to $s (n/d) = t$. We conclude that $\sum_{d \mid n} \varphi(d) = n$
+\end{proof}
+
+\newpage
+
+\section{Dirichlet convolution}
+Given 2 arithmetic functions $f, g: \mathbb{N}_{> 0} \to \mathbb{C}$, define their \emph{Dirichlet convolution}
+$$(f * g) (n) = \sum_{d \mid n} f(d) g \left( \frac{n}{d} \right)$$
+\begin{proposition}
+The collection of multiplicative functions forms a commutative monoid (with Dirichlet convolution serves as multiplication). Note, however, that the convolution of 2 completely multiplicative functions may not be \textit{completely} multiplicative.
+\end{proposition}
+\begin{proof} \ \\
+\underline{Closed under convolution:} given $\gcd(m, n) = 1$, then every divisor $d$ of $mn$ can be factored uniquely as a divisor $u$ of $m$ and a divisor $v$ (and vice versa). Additionally, $\gcd(u, v) = 1$. Thus,
+\begin{align*}
+(f * g) (mn) & = \sum_{d \mid mn} f \left( d \right) g \left( \frac{mn}{d} \right) = \sum_{u \mid m, v \mid n} f \left( uv \right) g \left( \frac{mn}{uv} \right)
+\\
+& = \sum_{u \mid m, v \mid n} f \left( u \right) f \left( v \right) g \left( \frac{m}{u} \right) g \left( \frac{n}{v} \right)
+\\
+& = \left[ \sum_{u \mid m} f \left( u \right) g \left( \frac{m}{u} \right) \right] \left[ \sum_{v \mid n} f \left( v \right) g \left( \frac{n}{v} \right) \right]
+\\
+& = (f * g)(m) (f * g)(n)
+\end{align*}
+\underline{Commutative:} for all $n \geq 1$
+\begin{align*}
+(f * g)(n) & = \sum_{d \mid n} f \left( d \right) g \left( \frac{n}{d} \right) = \sum_{de = n} f \left( d \right) g \left( e \right) = \sum_{ed = n} g \left( e \right) f \left( d \right) = (g * f)(n)
+\end{align*}
+\underline{Associative:} for all $n \geq 1$
+\begin{align*}
+(f * (g * h))(n) & = \sum_{u \mid n} f \left( u \right) \sum_{v \mid n/u} g \left( v \right) h \left( \frac{n}{uv} \right)
+\\
+& = \sum_{u \mid n} f \left( u \right) \left[ \sum_{vw=n/u} g \left( v \right) h \left( w \right) \right]
+\\
+& = \sum_{uvw=n} f \left( u \right) g \left( v \right) h \left( w \right)
+\\
+& = \sum_{w \mid n} \left[ \sum_{uv=n/w} f \left( u \right) g \left( v \right) \right] h \left( w \right)
+\\
+& = \sum_{w \mid n} \left[ \sum_{u \mid n/w} f \left( u \right) g \left( \frac{n}{uw} \right) \right] h \left( w \right)
+\\
+& = \sum_{w \mid n} (f*g) \left( \frac{n}{w} \right) h \left( w \right) = ((f*g)*h) (n)
+\end{align*}
+\underline{Existence of identity:} the identity (with respect to the convolution) is $\varepsilon$.
+\begin{align*}
+(f * \varepsilon) (n) = (\varepsilon * f) (n) = \sum_{d \mid n} \varepsilon(d) f \left( \frac{n}{d} \right) = \varepsilon(1) f(n) + \sum_{\substack{d \mid n \\ d \neq 1}} \varepsilon(d) f \left( \frac{n}{d} \right) = f(n)
+\end{align*}
+\end{proof}
+\begin{corollary}[Divisorial sum]
+If $f$ is multiplicative, then so is $g(n) = \sum_{d \mid n} f(d)$
+\end{corollary}
+\begin{proof}
+Note that the unit map is (completely) multiplicative, so $g(n) = (f * 1) (n) = \sum_{d \mid n} f(d) 1(n/d) = \sum_{d \mid n} f(d)$ is also multiplicative.
+\end{proof}
+\begin{lemma}[Dirichlet inversion formula] \label{dirichlet-inv-form}
+If $f$ is an arithmetic function with $f(1) \neq 0$, then it has inverse $g$ with respect to convolution. Recursively, $g(1) = (f(1))^{-1}$, and for $n > 1$
+\begin{align*}
+g(n) & = \frac{-1}{f(1)} \sum_{\substack{d \mid n \\ d \neq n}} f \left( \frac{n}{d} \right) g \left( d \right)
+\end{align*}
+Furthermore, if $f$ is multiplicative, then its inverse is also multiplicative. And so, the collection of multiplicative functions forms an abelian group. 
+\end{lemma}
+\begin{proof}
+The recursive definition is straight from the definition of convolution. As for multiplicativity, the base case $g(1) = (f(1))^{-1} = 1$. Suppose $g(mn) = g(m) g(n)$ holds for relatively prime $m, n$ such that $mn < r$. Then for relatively prime $mn = r$ we have
+\begin{align*}
+g(m) g(n) & = \sum_{\substack{d \mid m \\ d \neq m}} f \left( \frac{m}{d} \right) g \left( d \right) \cdot \sum_{\substack{e \mid n \\ e \neq n}} f \left( \frac{n}{e} \right) g \left( e \right)
+\\
+& = \sum_{\substack{d \mid m, e \mid n \\ de \neq mn}} \left[ f \left( \frac{m}{d} \right) g \left( d \right) \right] \cdot \left[ f \left( \frac{n}{e} \right) g \left( e \right) \right]
+\\
+& \qquad - \sum_{\substack{e \mid n \\ e \neq n}} \left[ f \left( 1 \right) g \left( m \right) \right] \cdot \left[ f \left( \frac{n}{e} \right) g \left( e \right) \right]
+\\
+& \qquad - \sum_{\substack{d \mid m \\ d \neq m}} \left[ f \left( \frac{m}{d} \right) g \left( d \right) \right] \cdot \left[ f \left( 1 \right) g \left( n \right) \right]
+\\
+& = \sum_{\substack{d \mid m, e \mid n \\ de \neq mn}} f \left( \frac{mn}{de} \right) g(de) +  2 g(m) g(n)
+\\
+& = -g(mn) + 2 g(m) g(n)
+\end{align*}
+Equivalently, $g(mn) = g(m) g(n)$.
+\end{proof}
+Let $\mu$ be the inverse of the unit map $1$, called \emph{Möbius function}. It is multiplicative because $1$ is multiplicative. By definition, we obtain the following identity
+$$\sum_{d \mid n} \mu(d) = \varepsilon(n)$$
+\begin{corollary}[Möbius inversion formula]
+If $f, g: \mathbb{N}_{> 0} \to \mathbb{C}$ be arithmetic functions, then $g(n) = \sum_{d \mid n} f(d)$ for all $n \geq 1$ if and only if $g(n) = \sum_{d \mid n} \mu(d) g \left( \frac{n}{d} \right)$ for all $n \geq 1$.
+\end{corollary}
+\begin{theorem}[Formula of Möbius function]
+$\mu(n) = 0$ if $n$ has a square factor, $\mu(n) = 1$ if $n$ is square-free with even number of prime factors, and $\mu(n) = -1$ if $n$ is square-free with odd number of prime factors.
+\end{theorem}
+\begin{proof}
+We first show that $\mu(n) = \pm 1$ for square-free $n$. By \hyperref[dirichlet-inv-form]{Dirichlet inversion formula}, $\mu(p) = -1(p) \mu(1) = -1$. Therefore, by unique factorization theorem, a square-free number is factored into product of \emph{distinct} primes. Since $\mu$ is multiplicative, $\mu(n) = (-1)^{\omega(n)} = (-1)^{\Omega(n)}$ for square-free $n$, where $\omega(n)$ is the number of \textit{distinct} prime factors of $n$.
+\\
+\\
+Now, to show the remaining case, we need to show that $\mu(p^k) = 0$ for all $k \geq 2$. Again by \hyperref[dirichlet-inv-form]{Dirichlet inversion formula}, $\mu(p^2) = - \left[ 1(p^2) \mu(1) + 1(p) \mu(p) \right] = 0$. By induction,
+$$\mu(p^k) = - \sum_{i = 0}^{k - 1} 1(p^{k - i}) \mu(p^i) = - \sum_{i = 0}^{k - 1} \mu(p^i) = - \left[ \mu(1) + \mu(p) + \sum_{i = 2}^{k - 1} \mu(p^i) \right] = 0$$
+Therefore, $\mu(n) = 0$ whenever $n$ is not square-free (i.e. having a square factors.
+\end{proof}
+
+\begin{shaded}
+\begin{example} \ 
+\begin{enumerate}
+	\item $\varphi * 1 = \operatorname{id}$.
+	\item Power sum of divisors:
+	$$\sigma_\alpha (n) = \sum_{d \mid n} d^\alpha = (\operatorname{id}^\alpha * 1) (n)$$
+	\item Popovici function: let $\mu_k$ denote $k$-fold Dirichlet convolution of $\mu$ with itself. Show that
+	$$\mu_k (p^t) = (-1)^t {k \choose t}$$
+	where $p$ is prime, $t \geq 0$.
+	\item Jordan totient function:
+	$$J_k (n) = n^k \prod_{p \mid n} \left( 1 - \frac{1}{p^k} \right)$$
+	$$J_k * 1 = \operatorname{id}^k$$
+	$$\operatorname{id}^s J_s$$
+	\item Dedekind psi function:
+	$$\psi_k (n) = \frac{J_{2k}(n)}{J_k (n)} = (\operatorname{id}^k * \mu^2) (n) = n^k \prod_{p \mid n} \left( 1 + \frac{1}{p^k} \right)$$
+	\item If $\varepsilon_2 (n)$ is the indicator function on the set of squares, then
+	$$\varepsilon_2 * \psi_k = \sigma_k$$
+\end{enumerate}
+\end{example}
+
+\begin{exercise}
+Find formulas for
+\begin{enumerate}
+	\item $\sum_{d \mid n} \mu(d)\varphi(d)$
+	\item $\sum_{d \mid n} \mu(d)^2 \varphi(d)^2$
+	\item $\sum_{d \mid n} \mu(d)^2 \varphi(d)^2$
+	\item $\sum_{d \mid n} \mu(d)^2 / \varphi(d)^2$
+\end{enumerate}
+\end{exercise}
+\begin{exercise}
+Prove that for all $n \geq 1$
+$$\varphi(n) = n \prod_{p \mid n} \left( 1 - \frac{1}{p} \right)$$
+where the product is over prime factor of $n$.
+\end{exercise}
+\begin{exercise}
+Prove that
+\begin{enumerate}
+	\item $\phi(n)\phi(m) = \phi(\gcd(n, m)) \phi(\operatorname{lcm}(n, m))$
+	\item $\phi(mn)\phi(\gcd(m,n)) = \gcd(n, m) \phi(m)\phi(n)$
+\end{enumerate}
+\end{exercise}
+
+\newpage
+
+\section{Dirichlet action}
+The group of multiplicative functions (with values in $\mathbb{C}$) has actions on the following collections
+\begin{enumerate}
+	\item The collection of all complex-valued functions on $[1, \infty)$.
+	\item Formal infinite series
+\end{enumerate}
+Let $F: [1, \infty) \to \mathbb{C}$ be and $\alpha: \mathbb{N}^* \to \mathbb{C}$ be functions, then we define Mellin action of $\alpha$ on $F$ as below
+$$(\alpha * F) (x) = \sum_{1 \leq n \leq x} \alpha(n) F \left( \frac{x}{n} \right)$$
+where the sum is over positive integers that are at most $x$.
+\begin{theorem}[Möbius inversion for floored summation]
+The Mellin action is a monoid action, and a group action if one restricts to just multiplicative functions.
+\end{theorem}
+\begin{proof}
+\underline{Identity:} $(\varepsilon * F)(x) = \sum_{1 \leq n \leq x} \varepsilon(n) F \left( \frac{x}{n} \right) = \varepsilon(1) F \left( \frac{x}{1} \right) = F(x)$
+\\
+\underline{Associative:}
+\begin{align*}
+[\alpha * (\beta * F)] (x) & = \sum_{1 \leq n \leq x} \alpha(n) (\beta * F) \left( \frac{x}{n} \right)
+\\
+& = \sum_{1 \leq n \leq x} \alpha(n) \sum_{1 \leq m \leq x/n} \beta(m) F \left( \frac{x}{nm} \right)
+\\
+& = \sum_{1 \leq mn \leq x} \alpha(n) \beta(m) F \left( \frac{x}{nm} \right)
+\\
+& = \sum_{1 \leq k \leq x} \left[ \sum_{mn = k} \alpha(n) \beta(m) \right] F \left( \frac{x}{k} \right)
+\\
+& = \sum_{1 \leq k \leq x} (\alpha*\beta)(k) F \left( \frac{x}{k} \right) = [(\alpha*\beta) * F] (x)
+\end{align*}
+\end{proof}
+\begin{corollary}
+If $F(x) = \sum_{1 \leq n \leq x} G(x/n)$ then $G(x) = \sum_{1 \leq n \leq x} \mu(n) F(x/n)$.
+\end{corollary}
+The Hartman-Wintner action of arithmetic functions (with values in $\mathbb{C}$) on itself is defined as (based on their 1947 paper)
+\begin{align*}
+(\alpha \triangleleft f) (n) = \sum_{k = 1}^\infty \alpha(k) f(kn)
+\end{align*}
+as long as the expression on right converges absolutely for all $n \geq 1$.
+\begin{theorem}[Möbius inversion for infinite series]
+The Hartman-Wintner action is a partial monoid action, and a partial group action if restricted to multiplicative functions.
+\\
+\underline{Note:} it is only partial since the summation does not necessarily converges for all arithmetic functions.
+\end{theorem}
+\begin{proof}
+\underline{Identity:} $(\varepsilon \triangleleft f)(n) = \sum_{k = 1}^\infty \varepsilon(k) f \left( kn \right) = \varepsilon(1) f(1 \cdot n) = f(n)$
+\\
+\underline{Associative:} since the infinite sums are assumed to absolutely converge, we can rearrange it.
+\begin{align*}
+[\alpha \triangleleft (\beta \triangleleft f)] (x) & = \sum_{k = 1}^\infty \alpha(k) (\beta \triangleleft f)(kn)
+\\
+& = \sum_{k = 1}^\infty \alpha(k) \sum_{l = 1}^\infty \beta(l) f(kln)
+\\
+& = \sum_{k, l = 1}^\infty \alpha(k) \beta(l) f(kln)
+\\
+& = \sum_{h = 1}^\infty \left[ \sum_{kl = h} \alpha(k) \beta(l) \right] f(hn)
+\\
+& = \sum_{h = 1}^\infty (\alpha*\beta)(h) f(hn) = [(\alpha*\beta) \triangleleft f] (x)
+\end{align*}
+\end{proof}
+\begin{corollary}
+If $f(n) = \sum_{k = 1}^\infty g(kn)$, then $g(n) = \sum_{k = 1}^\infty \mu(k) f(kn)$. This holds under the assumption $\sum_{n = 1}^\infty |f(n)| d(n) < \infty$ and $\sum_{n = 1}^\infty |g(n)| d(n) < \infty$
+\end{corollary}
+
+\newpage
+
+\section{Dirichlet series}
+Given a sequence of complex numbers $(f(n))_{n = 1}^\infty$, the corresponding Dirichlet series is defined as
+$$\mathcal{D}_f (s) = \sum_{n = 1}^\infty \frac{f(n)}{n^s}, s \in \mathbb{C}$$
+\begin{proposition}
+Treating as a formal series, then $\mathcal{D}_f (s) \mathcal{D}_g(s) = \mathcal{D}_{f*g} (s)$
+\end{proposition}
+\begin{proof}
+\begin{align*}
+\mathcal{D}_f (s) \mathcal{D}_g(s) & = \sum_{n, m = 1}^\infty \frac{f(n) g(m)}{(nm)^s} = \sum_{k = 1}^\infty \frac{1}{k^s} \sum_{nm=k} f(n) g(m) = \sum_{k = 1}^\infty \frac{(f*g)(k)}{k^s} = \mathcal{D}_{f*g}(s)
+\end{align*}
+\end{proof}
+\begin{corollary} \ 
+\begin{enumerate}
+	\item The \emph{Riemann zeta function} $\zeta(s) = \sum_{n = 1}^\infty n^{-s}$ has its (formal) inverse as
+	$$\frac{1}{\zeta(s)} = \sum_{n = 1}^\infty \frac{\mu(n)}{n^s}$$
+	More generally,
+	$$\frac{1}{\mathcal{D}_f (s)} = \sum_{n = 1}^\infty \frac{\mu(n) f(n)}{n^s}$$
+	\item If $d_\alpha(n) = \sum_{d \mid n} n^\alpha$, then corresponding Dirichlet series is
+	\begin{align*}
+	\sum_{n = 1}^\infty \frac{d_\alpha(n)}{n^s} = \zeta(s) \zeta(s - \alpha)
+	\end{align*}
+	In particular, the Dirichlet series corresponding to the divisor function $d(n) = d_0 (n)$ is the square of zeta function
+\end{enumerate}
+\end{corollary}
+\begin{lemma}[Abel summation formula]
+Let $(a_n)_{n = 0}^\infty$ be a sequence of complex numbers (possibly all real). Define the associated partial summation
+$$A(t) = \sum_{0 \leq n \leq t} a_n$$
+If $\phi$ is a (complex-valued) continuously differentiable function on a neighborhood of $[x, y]$, then
+$$\sum_{x < n \leq y} a_n \phi(n) = A(y) \phi(y) - A(x) \phi(x) - \int_x^y A(u) \phi'(u) du$$
+\end{lemma}
+\begin{proof}
+Note that $A(t) = A (\lfloor t \rfloor)$, so
+\begin{align*}
+\sum_{x < n \leq y} a_n \phi(n) & = \sum_{x < n \leq y} (A(n) - A(n-1)) \phi(n)
+\\
+& = \sum_{x < n \leq y} A(n) \phi(n) - \sum_{x-1 < n \leq y-1} A(n) \phi(n+1)
+\\
+& = \left[ \sum_{x < n \leq y - 1} A(n) \phi(n) + \sum_{y - 1 < n \leq y} A(n) \phi(n) \right]
+\\
+& \qquad - \left[ \sum_{x - 1 < n \leq x} A(n) \phi(n+1) + \sum_{x < n \leq y - 1} A(n) \phi(n+1) \right]
+\\
+& = \left[ \sum_{x < n \leq y - 1} A(n) \phi(n) + A(\lfloor y \rfloor) \phi (\lfloor y \rfloor) \right]
+\\
+& \qquad - \left[ A(\lfloor x \rfloor) \phi (\lfloor x \rfloor) + \sum_{x< n \leq y-1} A(n) \phi(n+1) \right]
+\\
+& = A(y) \phi (\lfloor y \rfloor) -  A(x) \phi (\lfloor x \rfloor + 1) - \sum_{x < n \leq y - 1} A(n) \left( \phi(n+1) - \phi(n) \right)
+\\
+& = A(y) \phi (\lfloor y \rfloor) -  A(x) \phi (\lfloor x \rfloor + 1) - \sum_{x < n \leq y - 1} A(n) \int_n^{n + 1} \phi'(u) du
+\end{align*}
+Since $A(t)$ is constant almost everywhere for $t$ between 2 integers (except only at the right endpoint), we can bring it into the integrals.
+\begin{align*}
+\sum_{x < n \leq y} a_n \phi(n) & = A(y) \phi (\lfloor y \rfloor) -  A(x) \phi (\lfloor x \rfloor + 1) - \sum_{x < n \leq y - 1} \int_n^{n + 1} A(u) \phi'(u) du
+\\
+& = A(y) \phi (\lfloor y \rfloor) -  A(x) \phi (\lfloor x \rfloor + 1) - \int_{\lfloor x \rfloor + 1}^{\lfloor y \rfloor} A(u) \phi'(u) du
+\\
+& = A(y) \phi(y) - A(y) \left[ \phi(y) - \phi (\lfloor y \rfloor) \right]
+\\
+& \qquad - A(x) \phi(x) + A(x) \left[ \phi (\lfloor x \rfloor + 1) - \phi(x) \right]
+\\
+& \qquad - \int_{\lfloor x \rfloor + 1}^{\lfloor y \rfloor} A(u) \phi'(u) du
+\\
+& = A(y) \phi(y) - A(x) \phi(x)
+\\
+& \qquad - A(y) \int_{\lfloor y \rfloor}^y \phi'(u) du - A(x) \int_x^{\lfloor x \rfloor + 1} \phi'(u) du
+\\
+& \qquad - \int_{\lfloor x \rfloor + 1}^{\lfloor y \rfloor} A(u) \phi'(u) du
+\\
+& = A(y) \phi(y) - A(x) \phi(x)
+\\
+& \qquad - \int_{\lfloor y \rfloor}^y A(u) \phi'(u) du - \int_x^{\lfloor x \rfloor + 1} A(u) \phi'(u) du
+\\
+& \qquad - \int_{\lfloor x \rfloor + 1}^{\lfloor y \rfloor} A(u) \phi'(u) du
+\\
+& = A(y) \phi(y) - A(x) \phi(x) - \int_x^y A(u) \phi'(u) du
+\end{align*}
+(recall that the least integer $n > x$ is $\lfloor x + 1 \rfloor = \lfloor x \rfloor + 1$, while the greatest integer $n \leq y$ is $\lfloor y \rfloor$)
+\\
+\\
+*If one know the Riemann-Stieltjes integral then the Abel summation formula is just integration by parts.
+\begin{align*}
+\sum_{x < n \leq y} a_n \phi(n) & = \int_x^y \phi dA = A(y) \phi(y) - A(x) \phi(x)  - \int_x^y A d\phi
+\\
+& = A(y) \phi(y) - A(x) \phi(x)  - \int_x^y A(u) \phi'(u) du
+\end{align*}
+\end{proof}
+\begin{corollary} \label{zeta-mellin-cont}
+If $a_n = 1$ (for $n \geq 1$) and $\phi(x) = x^{-s}$ on $(0, \infty)$, then $A(x) = \lfloor x \rfloor$ (since the index starts at 1) and
+$$\sum_{1 \leq n \leq x} \frac{1}{n^s} = \frac{\lfloor x \rfloor}{x^s} + s \int_1^x \frac{\lfloor u \rfloor}{u^{s + 1}} du$$
+\begin{enumerate}
+	\item If $s = 1$, we get an approximation for the harmonic series as
+	$$\sum_{1 \leq n \leq x} \frac{1}{n} = \frac{\lfloor x \rfloor}{x} + \int_1^x \frac{\lfloor u \rfloor}{u^2} du$$
+	Expanding more, we get the following (where $\{ x \} = x - \lfloor x \rfloor$ denotes the \emph{fractional part} of $x$)
+	\begin{align*}
+	\sum_{1 \leq n \leq x} \frac{1}{n} & = 1 - \frac{\{ x \}}{x} + \int_1^x \frac{du}{u} - \int_1^x \frac{\{ u \}}{u^2} du
+	\\
+	& = \ln x + \left( 1 - \int_1^x \frac{\{ u \}}{u^2} du \right) - \frac{\{ x \}}{x}
+	\end{align*}
+	Since $0 \leq \frac{\{ x \}}{x} < \frac{1}{x}$, and $0 \leq \int_1^x \frac{\{ u \}}{u^2} du \leq \int_1^x \frac{1}{u^2} du = 1 - \frac{1}{x}$ (with $g(x) = \int_1^x \frac{\{ u \}}{u^2} du$ increasing), we get
+	\begin{align*}
+	\lim_{x \to \infty} \left[ \sum_{1 \leq n \leq x} \frac{1}{n} - \ln x \right] & = \gamma < \infty
+	\end{align*}
+	where $\gamma = 1 - \int_1^\infty \frac{\{ u \}}{u^2} du$ is the Euler-Mascheroni constant.
+	\item If $x \to \infty$, we get the formula for the zeta function (only valid when $\operatorname{Re} s > 1$ in order for $\lfloor x \rfloor/x^s$ to converge to 0)
+	$$\zeta(s) = s \int_1^\infty \frac{\lfloor u \rfloor}{u^{s + 1}} du$$
+	Which can be used to establish the pole at $s = 1$ with residue $1$ as follows:
+	\begin{enumerate}
+		\item Convergence of $\zeta$ for $\operatorname{Re} s > 1$: given $s = \sigma + it$ ($\sigma > 1$) and $u \geq 1$, we have
+		\begin{align*}
+		\left| \frac{\lfloor u \rfloor}{u^{s + 1}} \right| & = \frac{\lfloor u \rfloor}{u^{\sigma + 1} |u^{it}|}
+		\\
+		& = \frac{\lfloor u \rfloor}{u^{\sigma + 1} |e^{i(t \ln u)}|} = \frac{\lfloor u \rfloor}{u^{\sigma + 1}} \leq u^{-\sigma}
+		\end{align*}
+		Thus
+		\begin{align*}
+		\left| \int_x^y \frac{\lfloor u \rfloor}{u^{s + 1}} du \right| & \leq \int_x^y \left| \frac{\lfloor u \rfloor}{u^{s + 1}} \right| du
+		\\
+		& \leq \int_x^y u^{-\sigma} du = \frac{y^{1 - \sigma} - x^{1 - \sigma}}{1 - \sigma}
+		\end{align*}
+		For $x < y$ sufficiently large, $\frac{y^{1 - \sigma} - x^{1 - \sigma}}{1 - \sigma}$ is sufficiently small. We conclude $\int_1^\infty \frac{\lfloor u \rfloor}{u^{s + 1}} du$ (and $\zeta$) is absolutely convergent by Cauchy completeness.
+		\\
+		\underline{Note:} we cannot simply bound the original integral and say it is convergent, since the imaginary part may behave chaotic (also it only works for real-valued functions).
+		\item Residue 1 at the \textit{simple} pole $s = 1$: still assuming $s = \sigma+it$ for $\sigma > 1$
+		\begin{align*}
+		\zeta(s) & = s \int_1^\infty \frac{\lfloor u \rfloor}{u^{s + 1}} du = s \left( \int_1^\infty u^{-s} du - \int_1^\infty \{ u \} u^{-s-1} du \right)
+		\\
+		& \mbox{(the integrals are absolutely convergent by the same previous method,}
+		\\
+		& \qquad \mbox{so we can split them up)}
+		\\
+		& = s \left( \frac{\lim_{u \to \infty} u^{-s+1}-1}{-s+1} - \int_1^\infty \{ u \} u^{-s-1} du \right)
+		\\
+		& = \frac{s}{s - 1} - s \int_1^\infty \{ u \} u^{-s-1} du
+		\\
+		& \mbox{(since $|u^{-s+1}| = u^{1-\sigma}$)}
+		\\
+		& = 1 + \frac{1}{s - 1} - s \int_1^\infty \{ u \} u^{-s-1} du
+		\end{align*}
+		For the integral $\int_1^\infty \{ u \} u^{-s-1} du$, we just need to check it is finite at $s = 1$. Indeed,
+		\begin{align*}
+		\left| \int_1^\infty \{ u \} u^{-s-1} du \right| & \leq \int_1^\infty \left| \{ u \} u^{-s-1} \right| du
+		\\
+		& \leq \int_1^\infty u^{-\sigma-1} du = \frac{1}{\sigma} \leq 1
+		\end{align*}
+		We then conclude
+		\begin{align*}
+		\lim_{s \to 1^+} \left[ \zeta(s) -  \frac{1}{s - 1} \right] & = 1 - \lim_{s \to 1^+} s \int_1^\infty \frac{\{ u \}}{u^{s+1}} du
+		\\
+		& = 1 - \int_1^\infty \frac{\{ u \}}{u^2} du = \gamma
+		\end{align*}
+		\underline{Note:} if we go through the argument carefully, the formula
+		$$\zeta(s) = \frac{s}{s - 1} - s \int_1^\infty \{ u \} u^{-s-1} du$$
+		(not $s \int_1^\infty \frac{\lfloor u \rfloor}{u^{s + 1}} du$) actually converges for $\sigma = \operatorname{Re} s > 0$ (and agree with the old one when $\operatorname{Re} s > 1$) except at $s = 1$, so this is a continuation of the zeta function to the left half-plane. Taking a result from complex analysis, we know that this is the \textit{unique} meromorphic function (it still has a pole at $s = 1$) that extends the zeta function.
+	\end{enumerate}
+\end{enumerate}
+\end{corollary}
+The corollary is quite lengthy, but it gives an important method that we will use to show the convergence of the Dirichlet series in general.
+\begin{theorem}[Local uniformness of Dirichlet series]
+Suppose the Dirichlet series $\alpha(s) = \sum_{n = 0}^\infty a_n n^{-s}$ converges (conditionally, no need for absolutely) at the point $s = s_0 = \sigma_0 + i t_0$, and $H > 0$. Then $\alpha(s)$ is uniformly convergent in the sector $\mathcal{S} = \{ s : \sigma \geq \sigma_0, |t - t_0| \leq H (\sigma - \sigma_0) \}$ (it looks like a fan, but not the entire half-plane).
+\end{theorem}
+\begin{proof}
+Rewrite
+$$\alpha(s) = \sum_{n = 1}^\infty n^{s_0-s} \left( a_n n^{-s_0} \right)$$
+Substitute $a_n := -a_n n^{-s_0}$ (with $a_1 := \alpha(s_0) - a_1$) and $\phi(n) = n^{s_0 - s}$ into Abel summation formula, we get (for $M < N$ be integers, and $u > 1$)
+\begin{align*}
+R(u) & = \sum_{1 \leq n \leq u} a_n = \sum_{n = 2}^\infty a_n n^{-s_0} - \sum_{n = 2}^{\lfloor u \rfloor} a_n n^{-s_0}
+\\
+& = \sum_{n = \lfloor u \rfloor + 1}^\infty a_n n^{-s_0} = \sum_{n > u} a_n n^{-s_0}
+\\
+\sum_{n = M+1}^N a_n n^{-s} & = R(N) N^{s_0 - s} - R(M) M^{s_0 - s} - \int_M^N  R(u) \left( \frac{d}{du} u^{s_0 - s} \right) du
+\\
+& = R(N) N^{s_0 - s} - R(M) M^{s_0 - s} + (s - s_0) \int_M^N  R(u) u^{s_0 - s - 1} du
+\end{align*}
+Note that $R(u) \to 0$ as $u \to \infty$, so for a given $\varepsilon > 0$, we can let $M < N$ be sufficiently large enough so that $|R(u)| < \varepsilon$ for all $u \geq N$. Hence,
+\begin{align*}
+\left| \sum_{n = M+1}^N a_n n^{-s} \right| & \leq |R(M) M^{s_0 - s}| + |R(M) N^{s_0 - s}| + |s_0 - s| \int_M^N |R(u)| \cdot |u^{s_0 - s - 1}| du
+\\
+& < \varepsilon \left[ M^{- (\sigma - \sigma_0)} + N^{- (\sigma - \sigma_0)} + |s - s_0| \int_N^M u^{\sigma_0 - \sigma - 1} du \right]
+\\
+& \leq \varepsilon \left[ 2 + \frac{|s - s_0|}{\sigma - \sigma_0} \right]
+\end{align*}
+But for all $s$ in the sector $\mathcal{S}$, we can bound the sum further! By triangle inequality, $|s - s_0| \leq \sigma - \sigma_0 + |t - t_0| \leq (H + 1) (\sigma - \sigma_0)$, so
+\begin{align*}
+\left| \sum_{n = M+1}^N a_n n^{-s} \right| < (H + 3) \varepsilon
+\end{align*}
+As long as $H$ is fixed, then the Dirichlet series $\alpha(s)$ converges uniformly in $\mathcal{S}$ by Cauchy uniform completeness.
+\end{proof}
+We can then define \emph{abscissa of convergence} $\sigma_c$ of a Dirichlet series $\alpha$ as the infimum of all $\sigma$ such that $\alpha(\sigma + it)$ converges for some $t$.
+\begin{remark}
+By definition (and previous theorem), we know that $\alpha(s)$ converges for all $\operatorname{Re} s > \sigma_c$, and diverges for all $\operatorname{Re} s < \sigma_c$. In fact, $\alpha(s)$ is \textit{holomorphic} on $\operatorname{Re} s > \sigma_c$ (a result of complex analysis since $\alpha$ uniformly converges on compact subsets).
+\end{remark}
+\end{shaded}
+
+\end{document}
